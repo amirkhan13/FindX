@@ -18,7 +18,7 @@ const ManageClaims = () => {
   ];
 
   const [claims, setClaims] = useState([]);
-  const [message, setMessage] = useState('');
+
 
   useEffect(() => {
     const fetchClaims = async () => {
@@ -58,23 +58,19 @@ const ManageClaims = () => {
           claim._id === claimId ? { ...claim, status: newStatus } : claim
         )
       );
-      setMessage(`Claim ${newStatus} successfully.`);
-      
-   
       toast.success(`Claim ${newStatus} successfully!`, {
         position: "bottom-right",
-        autoClose: 3000, 
+        autoClose: 3000,
       });
-
-      setTimeout(() => setMessage(''), 3000);
     } catch (error) {
      
       toast.error('Failed to update claim status!', {
-        position: "bottom-right", 
-        autoClose: 3000, 
+        position: "bottom-right",
+        autoClose: 3000,
       });
     }
   };
+  
 
   return (
     <div className='flex space-x-4'>

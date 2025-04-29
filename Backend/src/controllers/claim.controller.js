@@ -3,6 +3,8 @@ import {ApiError} from "../utils/ApiError.js"
 import { Claim } from "../models/Claim.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { Item } from "../models/Item.model.js";
+import { sendEmail } from "../utils/sendEmail.js"; 
+
 
 const createClaim = asyncHandler(async(req ,res)=>{
     const {itemId} = req.params
@@ -142,14 +144,13 @@ const updateClaimStatus = async (req, res) => {
   }
 
   try {
-    const claim = await Claim.findById(claimId).populate("itemId");
+    const claim = await Claim.findById(claimId).populate("itemId").populate("claimantId");
 
     if (!claim) {
       return res.status(404).json({ success: false, message: "Claim not found" });
     }
 
     if (claim.itemId.reportedBy.toString() !== req.user.id && req.user.role !== "admin") {
-
       return res.status(403).json({ success: false, message: "Unauthorized" });
     }
 
@@ -157,12 +158,24 @@ const updateClaimStatus = async (req, res) => {
     claim.reviewedBy = req.user.id;
     await claim.save();
 
+    try {
+      await sendEmail({
+        to: claim.claimantId.email,
+        subject: `Your claim has been ${status}`,
+        text: `Hello ${claim.claimantId.name},\n\nYour claim for item "${claim.itemId.itemName}" has been ${status}.\n\nThank you,\nFindX Team`,
+      });
+    } catch (emailError) {
+      // console.error("Error while sending email:", emailError.message);
+      throw new ApiError(400,"Error while sending email:", emailError.message)
+      
+    }
+
     res.status(200).json({ success: true, message: `Claim ${status} successfully` });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    console.error("Error while updating claim:", error.message);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
-  
   
 
 export{
