@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   server: {
     proxy: {
-      '/api/v1/': 'https://findx-uip9.onrender.com',
+      '/api/v1/': 'https://findx-r86a.onrender.com',
 
     }
   },
