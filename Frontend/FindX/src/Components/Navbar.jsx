@@ -5,21 +5,21 @@ import { useEffect, useState } from "react";
 
 const Navbar = ({ title = "Dashboard", menuItems = [] }) => {
   const navigate = useNavigate();
-  const [userData, setUserData] = useState({ 
-    name: "Loading...", 
-    avatar: "/default-avatar.png" 
+  const [userData, setUserData] = useState({
+    name: "Loading...",
+    avatar: "/default-avatar.png"
   });
 
   const handleLogout = async () => {
     try {
-      const response = await axios.post("/api/v1/users/logout", {}, { withCredentials: true });
+      const response = await axios.post(`${__API_URL__}/users/logout`, {}, { withCredentials: true });
       if (response.status === 200) {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         navigate("/login");
       }
     } catch (error) {
-     
+
     }
   };
 
@@ -27,19 +27,19 @@ const Navbar = ({ title = "Dashboard", menuItems = [] }) => {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("/api/v1/users/profile", {
+        const res = await axios.get(`${__API_URL__}/users/profile`, {
           headers: { Authorization: `Bearer ${token}` },
-          withCredentials:true
+          withCredentials: true
         });
         setUserData({
           name: res.data.data.username,
-          avatar: res.data.data.avatar || "/default-avatar.png", 
+          avatar: res.data.data.avatar || "/default-avatar.png",
         });
       } catch (error) {
-        
+
         setUserData(prev => ({
           ...prev,
-          name: "Guest" 
+          name: "Guest"
         }));
       }
     };
@@ -56,7 +56,7 @@ const Navbar = ({ title = "Dashboard", menuItems = [] }) => {
             alt="User Avatar"
             className="w-20 h-20 rounded-full border"
             onError={(e) => {
-              e.target.onerror = null; 
+              e.target.onerror = null;
               e.target.src = "/default-avatar.png";
             }}
           />

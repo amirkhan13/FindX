@@ -30,27 +30,27 @@ const ViewClaims = () => {
   const fetchReportedItems = async () => {
     try {
       setError("");
-      const response = await axios.get("/api/v1/claims/Item-Claims", {
+      const response = await axios.get(`${__API_URL__}/claims/Item-Claims`, {
         withCredentials: true,
       });
       setItems(response.data.data);
     } catch (err) {
       setError("Failed to fetch reported items. Please try again later.");
-    
+
     }
   };
 
   const handleClaimAction = async (claimId, action) => {
     try {
       await axios.patch(
-        `/api/v1/claims/${claimId}/status`,
+        `${__API_URL__}/claims/${claimId}/status`,
         { status: action },
         { withCredentials: true }
       );
       fetchReportedItems();
     } catch (err) {
       setError(`Failed to update claim status. Try again.`);
-     
+
     }
   };
 
@@ -64,8 +64,8 @@ const ViewClaims = () => {
       default:
         return "#f59e0b";
     }
-  }; 
-  
+  };
+
   return (
     <div className="flex space-x-4">
       <div>
@@ -183,7 +183,7 @@ const ViewClaims = () => {
                   </div>
                 ) : (
                   <p style={
-                    { marginTop: "10px ",color:"red"}
+                    { marginTop: "10px ", color: "red" }
                   }>No claims for this item.</p>
                 )}
               </div>

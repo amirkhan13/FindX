@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom"; 
+import { useNavigate, Link } from "react-router-dom";
 const Register = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -39,7 +39,7 @@ const Register = () => {
     payload.append("avatar", formData.avatar);
 
     try {
-      await axios.post("/api/v1/users/register", payload, {
+      await axios.post(`${__API_URL__}/users/register`, payload, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 

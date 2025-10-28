@@ -38,12 +38,12 @@ const SearchBarWithFilters = () => {
     if (status) params.append("status", status);
 
     try {
-      const res = await axios.get(`/api/v1/items/getAllItems?${params}`, {
+      const res = await axios.get(`${__API_URL__}/items/getAllItems?${params}`, {
         withCredentials: true,
       });
       setResults(res.data.data);
     } catch (err) {
-     
+
       toast.error("Failed to fetch search results.");
       setResults([]);
     }
@@ -53,12 +53,12 @@ const SearchBarWithFilters = () => {
     setSelectedItem(itemId);
     setShowModal(true);
     try {
-      const res = await axios.get(`/api/v1/items/${itemId}`, {
+      const res = await axios.get(`${__API_URL__}/items/${itemId}`, {
         withCredentials: true,
       });
       setSecurityQuestion(res.data.data.securityQuestion || "No question available");
     } catch (err) {
-      
+
       toast.error("Failed to fetch security question.");
       setSecurityQuestion("Error fetching question");
     }
@@ -67,7 +67,7 @@ const SearchBarWithFilters = () => {
   const handleClaimSubmit = async () => {
     try {
       const res = await axios.post(
-        `/api/v1/claims/${selectedItem}/create-claim`,
+        `${__API_URL__}/claims/${selectedItem}/create-claim`,
         { answerGiven: answer },
         { withCredentials: true }
       );
@@ -77,23 +77,23 @@ const SearchBarWithFilters = () => {
       setAnswer("");
       navigate("/user/dashboard/claims");
     } catch (err) {
-      
+
       toast.error(err.response?.data?.message || "You may have already claimed this item.");
     }
   };
 
   return (
     <div className='flex space-x-4'>
-      <ToastContainer  
-       position="bottom-right"
-       autoClose={5000}
-       hideProgressBar={false}
-       newestOnTop={false}
-       closeOnClick
-       rtl={false}
-       pauseOnFocusLoss
-       draggable
-       pauseOnHover
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
       />
       <div>
         <Navbar title="User DashBoard" menuItems={userMenu} />
@@ -169,7 +169,7 @@ const SearchBarWithFilters = () => {
                       <strong>Status:</strong>{" "}
                       <span className={
                         item.status === "open" ? "text-green-600" :
-                        item.status === "claimed" ? "text-red-600" : "text-gray-600"
+                          item.status === "claimed" ? "text-red-600" : "text-gray-600"
                       }>
                         {item.status}
                       </span>
@@ -180,18 +180,17 @@ const SearchBarWithFilters = () => {
 
                   <button
                     onClick={() => handleClaim(item._id)}
-                    className={`mt-4 w-full px-4 py-2 rounded text-white ${
-                      claimedItems.includes(item._id) || item.status !== "open"
+                    className={`mt-4 w-full px-4 py-2 rounded text-white ${claimedItems.includes(item._id) || item.status !== "open"
                         ? "bg-gray-400 cursor-not-allowed"
                         : "bg-orange-500 hover:bg-orange-300"
-                    }`}
+                      }`}
                     disabled={claimedItems.includes(item._id) || item.status !== "open"}
                   >
                     {claimedItems.includes(item._id)
                       ? "Claimed"
                       : item.status !== "open"
-                      ? "Not Available"
-                      : "Claim Item"}
+                        ? "Not Available"
+                        : "Claim Item"}
                   </button>
                 </div>
               ))}
@@ -199,7 +198,7 @@ const SearchBarWithFilters = () => {
           )
         ) : null}
 
-       
+
         {showModal && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white p-6 rounded shadow-md w-96">

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify'; 
-import 'react-toastify/dist/ReactToastify.css'; 
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Navbar from './Navbar';
 import { FilePlus, ClipboardList, Search, HandCoins, ShoppingBag } from "lucide-react";
 import axios from 'axios';
-import Loader from './Loader';  
+import Loader from './Loader';
 
 function ReportItem() {
     const today = new Date().toISOString().split('T')[0];
@@ -31,7 +31,7 @@ function ReportItem() {
 
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
-    const [loading, setLoading] = useState(false);  
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         if (e.target.name === "imageURL") {
@@ -50,7 +50,7 @@ function ReportItem() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        setLoading(true); 
+        setLoading(true);
 
         const payload = new FormData();
         payload.append("type", formData.type);
@@ -63,11 +63,11 @@ function ReportItem() {
         payload.append("description", formData.description);
 
         try {
-            const res = await axios.post("/api/v1/items/report-item", payload);
+            const res = await axios.post(`${__API_URL__}/items/report-item`, payload);
 
             setErrorMessage("");
             setSuccessMessage("Item Reported Successfully!");
-            toast.success("Item Reported Successfully!");  
+            toast.success("Item Reported Successfully!");
             setTimeout(() => setSuccessMessage(""), 3000);
 
             setFormData({
@@ -86,13 +86,13 @@ function ReportItem() {
             const message = error.response?.data?.message;
             if (status === 400 && message === "Image file is required") {
                 setErrorMessage("Image is Required");
-                toast.error("Image is Required");  
+                toast.error("Image is Required");
             } else if (status === 400 && message === "Security question is required for the lost items") {
                 setErrorMessage("Security question is required!");
-                toast.error("Security question is required!"); 
+                toast.error("Security question is required!");
             }
         } finally {
-            setLoading(false);  
+            setLoading(false);
         }
     };
 
@@ -103,11 +103,11 @@ function ReportItem() {
             </div>
 
             <div className="w-[75vw] mx-auto p-6 bg-white rounded-xl shadow-xl text-black-500 mt-7 border border-gray-300">
-                
+
 
                 {loading ? (
                     <div className="flex justify-center items-center">
-                        <Loader />  
+                        <Loader />
                     </div>
                 ) : (
                     <form onSubmit={handleSubmit}>
@@ -119,7 +119,7 @@ function ReportItem() {
                                     name="type"
                                     className="border p-2 rounded"
                                     value={formData.type}
-                                    onChange={handleTypeChange} 
+                                    onChange={handleTypeChange}
                                 >
                                     <option value="found">Found</option>
                                     <option value="lost">Lost</option>

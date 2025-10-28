@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from './Navbar';
-import { 
+import {
   LayoutDashboard,
   Users,
   PackageSearch,
   Handshake,
 } from 'lucide-react';
-import { toast, ToastContainer } from 'react-toastify';  
-import 'react-toastify/dist/ReactToastify.css'; 
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ManageAllUsers = () => {
   const userMenu = [
@@ -22,8 +22,8 @@ const ManageAllUsers = () => {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get('/api/v1/admin/all-users', { withCredentials: true });
-      setUsers(res.data.data.users); 
+      const res = await axios.get(`${__API_URL__}/admin/all-users`, { withCredentials: true });
+      setUsers(res.data.data.users);
     } catch (error) {
       toast.error('Failed to fetch users', error);
     }
@@ -35,20 +35,20 @@ const ManageAllUsers = () => {
 
   const handleDelete = async (userId) => {
     try {
-      await axios.delete(`/api/v1/admin/delete-users/${userId}`, { withCredentials: true });
+      await axios.delete(`${__API_URL__}/admin/delete-users/${userId}`, { withCredentials: true });
       setUsers(users.filter(user => user._id !== userId));
 
-      
+
       toast.success('User deleted successfully!', {
-        position: "bottom-right", 
-        autoClose: 3000, 
+        position: "bottom-right",
+        autoClose: 3000,
       });
     } catch (error) {
 
-      
+
       toast.error('Failed to delete user!', {
-        position: "bottom-right", 
-        autoClose: 3000, 
+        position: "bottom-right",
+        autoClose: 3000,
       });
     }
   };

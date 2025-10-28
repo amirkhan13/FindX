@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from './Navbar';
-import { 
+import {
   LayoutDashboard,
   Users,
   PackageSearch,
   Handshake,
 } from 'lucide-react';
-import { toast, ToastContainer } from 'react-toastify'; 
-import 'react-toastify/dist/ReactToastify.css';  
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const ManageClaims = () => {
   const userMenu = [
     { icon: <LayoutDashboard />, label: "Dashboard", path: "/admin/dashboard" },
@@ -23,15 +23,15 @@ const ManageClaims = () => {
   useEffect(() => {
     const fetchClaims = async () => {
       try {
-        const res = await axios.get('/api/v1/claims/All-claims', {
+        const res = await axios.get(`${__API_URL__}/claims/All-claims`, {
           withCredentials: true,
         });
-       
+
 
         const flatClaims = res.data.data.flatMap((item) =>
           item.claims.map((claim) => ({
             ...claim,
-            itemName: item.itemName, 
+            itemName: item.itemName,
             category: item.category,
             securityQuestion: item.securityQuestion
           }))
@@ -49,7 +49,7 @@ const ManageClaims = () => {
   const handleStatusUpdate = async (claimId, newStatus) => {
     try {
       await axios.patch(
-        `/api/v1/claims/${claimId}/status`,
+        `${__API_URL__}/claims/${claimId}/status`,
         { status: newStatus },
         { withCredentials: true }
       );
@@ -63,14 +63,14 @@ const ManageClaims = () => {
         autoClose: 3000,
       });
     } catch (error) {
-     
+
       toast.error('Failed to update claim status!', {
         position: "bottom-right",
         autoClose: 3000,
       });
     }
   };
-  
+
 
   return (
     <div className='flex space-x-4'>
@@ -79,7 +79,7 @@ const ManageClaims = () => {
       </div>
       <div className="p-6 mt-5">
         <h1 className="text-2xl font-bold mb-4 text-orange-500 -mx-14">Manage Claims</h1>
-      
+
         {claims.length === 0 ? (
           <p className=' px-96 py-60 text-orange-500'>No claims found.</p>
         ) : (
@@ -131,7 +131,7 @@ const ManageClaims = () => {
         )}
       </div>
 
-      
+
       <ToastContainer />
     </div>
   );

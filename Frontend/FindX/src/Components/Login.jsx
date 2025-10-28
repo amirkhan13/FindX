@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom"; 
+import { useNavigate, Link } from "react-router-dom";
 function Login() {
   const navigate = useNavigate();
 
-  
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -25,7 +25,7 @@ function Login() {
     };
 
     try {
-      const res = await axios.post("/api/v1/users/login", data, {
+      const res = await axios.post(`${__API_URL__}/users/login`, data, {
         withCredentials: true,
       });
 

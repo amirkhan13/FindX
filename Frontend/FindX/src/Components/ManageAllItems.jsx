@@ -3,14 +3,14 @@ import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from './Navbar';
-import { 
+import {
   LayoutDashboard,
   Users,
   PackageSearch,
   Handshake,
-  
+
 } from 'lucide-react';
-import Loader from './Loader'; 
+import Loader from './Loader';
 
 const ManageAllItems = () => {
   const userMenu = [
@@ -18,19 +18,19 @@ const ManageAllItems = () => {
     { icon: <Users />, label: "Manage Users", path: "/admin/dashboard/manage-users" },
     { icon: <PackageSearch />, label: "Manage Items", path: "/admin/dashboard/manage-items" },
     { icon: <Handshake />, label: "Manage Claims", path: "/admin/dashboard/manage-claims" },
-      
+
   ];
-  
+
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchItems = async () => {
     try {
-     
-      const res = await axios.get('/api/v1/items/getAllItems', { withCredentials: true });
+
+      const res = await axios.get(`${__API_URL__}/items/getAllItems`, { withCredentials: true });
       setItems(res.data.data);
     } catch (error) {
-     
+
       toast.error('Failed to fetch items');
     } finally {
       setLoading(false);
@@ -43,11 +43,11 @@ const ManageAllItems = () => {
 
   const handleDelete = async (itemId) => {
     try {
-      await axios.delete(`/api/v1/items/delete-item/${itemId}`, { withCredentials: true });
+      await axios.delete(`${__API_URL__}/items/delete-item/${itemId}`, { withCredentials: true });
       toast.success('Item deleted successfully');
-      fetchItems(); 
+      fetchItems();
     } catch (error) {
-     
+
       toast.error('Failed to delete item');
     }
   };
@@ -55,19 +55,19 @@ const ManageAllItems = () => {
   const handleStatusUpdate = async (itemId, newStatus) => {
     try {
       await axios.put(
-        `/api/v1/items/update-item-status/${itemId}`,
+        `${__API_URL__}/items/update-item-status/${itemId}`,
         { status: newStatus },
         { withCredentials: true }
       );
       toast.success('Item status updated successfully');
-      fetchItems(); 
+      fetchItems();
     } catch (error) {
-      
+
       toast.error('Failed to update item status');
     }
   };
 
-  if(loading) return(<Loader/>)
+  if (loading) return (<Loader />)
   return (
     <div className='flex -space-x-2'>
       <div className="w-1/4">
@@ -75,7 +75,7 @@ const ManageAllItems = () => {
       </div>
       <div className="p-6 w-3/4 relative mt-2">
         <h1 className="text-2xl font-bold mb-4 -mx-12 text-orange-500">Manage Items</h1>
-        
+
         {loading ? (
           <div className="flex justify-center items-center h-64">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500"></div>
@@ -125,8 +125,8 @@ const ManageAllItems = () => {
         ) : (
           <p className=" text-orange-500 py-64 text-center">No items found</p>
         )}
-        
-        <ToastContainer 
+
+        <ToastContainer
           position="bottom-right"
           autoClose={5000}
           hideProgressBar={false}

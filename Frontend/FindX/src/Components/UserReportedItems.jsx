@@ -13,15 +13,15 @@ import Loader from './Loader';
 
 
 function UserReportedItems() {
-      
+
     const userMenu = [
         { icon: <FilePlus />, label: "Report an Item", path: "/user/dashboard/report-item" },
         { icon: <ClipboardList />, label: "My Reported Items", path: "/user/dashboard/reported-items" },
         { icon: <Search />, label: "Search Items", path: "/user/dashboard/search" },
         { icon: <HandCoins />, label: "My Claims", path: "/user/dashboard/claims" },
         { icon: <ShoppingBag />, label: "Item Claims", path: `/user/dashboard/claims/view-claims` },
-               
-       
+
+
     ];
 
     const [items, setItems] = useState([]);
@@ -31,10 +31,10 @@ function UserReportedItems() {
     useEffect(() => {
         const fetchReportedItems = async () => {
             try {
-                const response = await axios.get('/api/v1/items/reportedItems');
-                setItems(response.data.items);  
+                const response = await axios.get(`${__API_URL__}/items/reportedItems`);
+                setItems(response.data.items);
             } catch (err) {
-               
+
                 setError('Failed to load your reported items');
             } finally {
                 setLoading(false);
@@ -42,9 +42,9 @@ function UserReportedItems() {
         };
 
         fetchReportedItems();
-    }, []); 
+    }, []);
 
-    if (loading) return <Loader/>;
+    if (loading) return <Loader />;
     if (error) return <div>{error}</div>;
 
     return (
@@ -60,7 +60,7 @@ function UserReportedItems() {
                     <div className="mx-7 mt-4 flex gap-6 overflow-x-auto pb-4">
                         {items.map((item) => (
                             <div key={item._id} className="bg-white shadow-md rounded-lg w-80 border border-gray-400">
-                                <img src={item.imageURL} alt={item.itemName} className="w-full h-48 object-cover rounded-t-md" />   
+                                <img src={item.imageURL} alt={item.itemName} className="w-full h-48 object-cover rounded-t-md" />
                                 <div className="p-4">
                                     <h3 className="text-xl font-semibold text-orange-500 mb-2">{item.itemName}</h3>
                                     <p><strong>Type:</strong> {item.type}</p>
