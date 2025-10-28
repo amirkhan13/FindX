@@ -20,7 +20,7 @@ function UserClaims() {
     useEffect(() => {
         const fetchClaims = async () => {
             try {
-                const response = await axios.get(`${__API_URL__}/claims/user-claims`, {
+                const response = await axios.get(`https://findx-zvqm.onrender.com/api/v1/claims/user-claims`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`,
                     },
@@ -72,10 +72,10 @@ function UserClaims() {
                                         <td className="px-4 py-3 border-b">
                                             <span
                                                 className={`px-3 py-1 rounded-full text-sm font-medium ${claim.status === 'approved'
-                                                        ? 'bg-green-100 text-green-700'
-                                                        : claim.status === 'rejected'
-                                                            ? 'bg-red-100 text-red-600'
-                                                            : 'bg-yellow-100 text-yellow-600'
+                                                    ? 'bg-green-100 text-green-700'
+                                                    : claim.status === 'rejected'
+                                                        ? 'bg-red-100 text-red-600'
+                                                        : 'bg-yellow-100 text-yellow-600'
                                                     }`}
                                             >
                                                 {claim.status?.toUpperCase() || 'PENDING'}

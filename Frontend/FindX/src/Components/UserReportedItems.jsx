@@ -31,7 +31,7 @@ function UserReportedItems() {
     useEffect(() => {
         const fetchReportedItems = async () => {
             try {
-                const response = await axios.get(`${__API_URL__}/items/reportedItems`);
+                const response = await axios.get(`https://findx-zvqm.onrender.com/api/v1/items/reportedItems`);
                 setItems(response.data.items);
             } catch (err) {
 

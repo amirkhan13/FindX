@@ -27,7 +27,7 @@ const ManageAllItems = () => {
   const fetchItems = async () => {
     try {
 
-      const res = await axios.get(`${__API_URL__}/items/getAllItems`, { withCredentials: true });
+      const res = await axios.get(`https://findx-zvqm.onrender.com/items/getAllItems`, { withCredentials: true });
       setItems(res.data.data);
     } catch (error) {
 
@@ -43,7 +43,7 @@ const ManageAllItems = () => {
 
   const handleDelete = async (itemId) => {
     try {
-      await axios.delete(`${__API_URL__}/items/delete-item/${itemId}`, { withCredentials: true });
+      await axios.delete(`https://findx-zvqm.onrender.com/api/v1/items/delete-item/${itemId}`, { withCredentials: true });
       toast.success('Item deleted successfully');
       fetchItems();
     } catch (error) {
@@ -55,7 +55,7 @@ const ManageAllItems = () => {
   const handleStatusUpdate = async (itemId, newStatus) => {
     try {
       await axios.put(
-        `${__API_URL__}/items/update-item-status/${itemId}`,
+        `https://findx-zvqm.onrender.com/api/v1/items/update-item-status/${itemId}`,
         { status: newStatus },
         { withCredentials: true }
       );

@@ -63,7 +63,7 @@ function ReportItem() {
         payload.append("description", formData.description);
 
         try {
-            const res = await axios.post(`${__API_URL__}/items/report-item`, payload);
+            const res = await axios.post(`https://findx-zvqm.onrender.com/api/v1/items/report-item`, payload);
 
             setErrorMessage("");
             setSuccessMessage("Item Reported Successfully!");

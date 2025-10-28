@@ -22,7 +22,7 @@ const ManageAllUsers = () => {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get(`${__API_URL__}/admin/all-users`, { withCredentials: true });
+      const res = await axios.get(`https://findx-zvqm.onrender.com/api/v1/admin/all-users`, { withCredentials: true });
       setUsers(res.data.data.users);
     } catch (error) {
       toast.error('Failed to fetch users', error);
@@ -35,7 +35,7 @@ const ManageAllUsers = () => {
 
   const handleDelete = async (userId) => {
     try {
-      await axios.delete(`${__API_URL__}/admin/delete-users/${userId}`, { withCredentials: true });
+      await axios.delete(`https://findx-zvqm.onrender.com/api/v1/admin/delete-users/${userId}`, { withCredentials: true });
       setUsers(users.filter(user => user._id !== userId));
 
 

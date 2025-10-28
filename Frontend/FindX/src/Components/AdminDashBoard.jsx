@@ -29,7 +29,7 @@ function AdminDashBoard() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await axios.get(`${__API_URL__}/admin/get-stats`, { withCredentials: true });
+        const res = await axios.get(`https://findx-zvqm.onrender.com/api/v1/admin/get-stats`, { withCredentials: true });
         setStats(res.data.data);
       } catch (error) {
         console.error('Failed to fetch dashboard stats', error);

@@ -30,7 +30,7 @@ const ViewClaims = () => {
   const fetchReportedItems = async () => {
     try {
       setError("");
-      const response = await axios.get(`${__API_URL__}/claims/Item-Claims`, {
+      const response = await axios.get(`https://findx-zvqm.onrender.com/api/v1/claims/Item-Claims`, {
         withCredentials: true,
       });
       setItems(response.data.data);
@@ -43,7 +43,7 @@ const ViewClaims = () => {
   const handleClaimAction = async (claimId, action) => {
     try {
       await axios.patch(
-        `${__API_URL__}/claims/${claimId}/status`,
+        `https://findx-zvqm.onrender.com/api/v1/claims/${claimId}/status`,
         { status: action },
         { withCredentials: true }
       );

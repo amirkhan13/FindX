@@ -6,14 +6,14 @@ export default defineConfig(({ mode }) => ({
   plugins: [react()],
   server: {
     proxy: {
-      '/api/v1': 'https://findx-r86a.onrender.com', // used only in dev mode
+      '/api/v1': 'https://findx-zvqm.onrender.com', // used only in dev mode
     },
   },
   define: {
     __API_URL__: JSON.stringify(
       mode === 'development'
         ? '/api/v1' // local dev proxy
-        : 'https://findx-r86a.onrender.com/api/v1' // production backend
+        : 'https://findx-zvqm.onrender.com/api/v1' // production backend
     ),
   },
 }))

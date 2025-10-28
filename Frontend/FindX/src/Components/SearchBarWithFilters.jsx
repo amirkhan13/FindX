@@ -38,7 +38,7 @@ const SearchBarWithFilters = () => {
     if (status) params.append("status", status);
 
     try {
-      const res = await axios.get(`${__API_URL__}/items/getAllItems?${params}`, {
+      const res = await axios.get(`https://findx-zvqm.onrender.com/api/v1/items/getAllItems?${params}`, {
         withCredentials: true,
       });
       setResults(res.data.data);
@@ -53,7 +53,7 @@ const SearchBarWithFilters = () => {
     setSelectedItem(itemId);
     setShowModal(true);
     try {
-      const res = await axios.get(`${__API_URL__}/items/${itemId}`, {
+      const res = await axios.get(`https://findx-zvqm.onrender.com/api/v1/items/${itemId}`, {
         withCredentials: true,
       });
       setSecurityQuestion(res.data.data.securityQuestion || "No question available");
@@ -67,7 +67,7 @@ const SearchBarWithFilters = () => {
   const handleClaimSubmit = async () => {
     try {
       const res = await axios.post(
-        `${__API_URL__}/claims/${selectedItem}/create-claim`,
+        `https://findx-zvqm.onrender.com/api/v1/claims/${selectedItem}/create-claim`,
         { answerGiven: answer },
         { withCredentials: true }
       );
@@ -181,8 +181,8 @@ const SearchBarWithFilters = () => {
                   <button
                     onClick={() => handleClaim(item._id)}
                     className={`mt-4 w-full px-4 py-2 rounded text-white ${claimedItems.includes(item._id) || item.status !== "open"
-                        ? "bg-gray-400 cursor-not-allowed"
-                        : "bg-orange-500 hover:bg-orange-300"
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-orange-500 hover:bg-orange-300"
                       }`}
                     disabled={claimedItems.includes(item._id) || item.status !== "open"}
                   >

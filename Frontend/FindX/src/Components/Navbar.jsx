@@ -12,7 +12,7 @@ const Navbar = ({ title = "Dashboard", menuItems = [] }) => {
 
   const handleLogout = async () => {
     try {
-      const response = await axios.post(`${__API_URL__}/users/logout`, {}, { withCredentials: true });
+      const response = await axios.post(`https://findx-zvqm.onrender.com/api/v1/users/logout`, {}, { withCredentials: true });
       if (response.status === 200) {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
@@ -27,7 +27,7 @@ const Navbar = ({ title = "Dashboard", menuItems = [] }) => {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get(`${__API_URL__}/users/profile`, {
+        const res = await axios.get(`https://findx-zvqm.onrender.com/api/v1/users/profile`, {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true
         });

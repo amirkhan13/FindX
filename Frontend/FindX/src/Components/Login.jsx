@@ -25,7 +25,7 @@ function Login() {
     };
 
     try {
-      const res = await axios.post(`${__API_URL__}/users/login`, data, {
+      const res = await axios.post(`https://findx-zvqm.onrender.com/api/v1/users/login`, data, {
         withCredentials: true,
       });
 

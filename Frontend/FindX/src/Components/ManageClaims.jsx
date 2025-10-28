@@ -23,7 +23,7 @@ const ManageClaims = () => {
   useEffect(() => {
     const fetchClaims = async () => {
       try {
-        const res = await axios.get(`${__API_URL__}/claims/All-claims`, {
+        const res = await axios.get(`https://findx-zvqm.onrender.com/api/v1/claims/All-claims`, {
           withCredentials: true,
         });
 
@@ -49,7 +49,7 @@ const ManageClaims = () => {
   const handleStatusUpdate = async (claimId, newStatus) => {
     try {
       await axios.patch(
-        `${__API_URL__}/claims/${claimId}/status`,
+        `https://findx-zvqm.onrender.com/api/v1/claims/${claimId}/status`,
         { status: newStatus },
         { withCredentials: true }
       );

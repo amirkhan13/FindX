@@ -39,7 +39,7 @@ const Register = () => {
     payload.append("avatar", formData.avatar);
 
     try {
-      await axios.post(`${__API_URL__}/users/register`, payload, {
+      await axios.post(`https://findx-zvqm.onrender.com/api/v1/users/register`, payload, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
