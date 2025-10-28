@@ -19,7 +19,7 @@ app.use(cookieParser())
 
 
 //routes import
-import userRouter from "./routes/user.routes.js"
+import userRouter from "./routes/User.routes.js"
 import itemRoutes from "./routes/Item.routes.js"
 import claimRoutes from "./routes/Claim.routes.js"
 import adminRoutes from "./routes/admin.routes.js"
