@@ -41,7 +41,8 @@ const Register = () => {
     try {
       await axios.post(`https://findx-zvqm.onrender.com/api/v1/users/register`, payload, {
         headers: { "Content-Type": "multipart/form-data" },
-      });
+
+      }, { withCredentials: true });
 
       setErrorMessage("");
       setSuccessMessage("Registered successfully! Please login.");

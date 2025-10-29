@@ -26,6 +26,7 @@ const ManageAllUsers = () => {
       setUsers(res.data.data.users);
     } catch (error) {
       toast.error('Failed to fetch users', error);
+
     }
   };
 

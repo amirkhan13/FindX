@@ -24,7 +24,9 @@ function UserClaims() {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`,
                     },
-                });
+
+                },
+                    { withCredentials: true });
                 setClaims(response.data.data || []);
             } catch (err) {
                 setError('Failed to fetch claims');
